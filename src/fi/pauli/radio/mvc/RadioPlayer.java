@@ -10,8 +10,10 @@ import javax.media.MediaLocator;
 import javax.media.Player;
 import javax.media.PlugInManager;
 import javax.media.format.AudioFormat;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class RadioPlayer implements ControllerListener {
+public class RadioPlayer extends JFrame implements ControllerListener {
 
 	private Player player;
 	private URL channelURL;
@@ -38,12 +40,12 @@ public class RadioPlayer implements ControllerListener {
 		try {
 			channelURL = new URL(channel);
 			player = Manager.createPlayer(new MediaLocator(channelURL));
-			//Manager.setHint(Manager.CACHING, new Boolean(false)); // disable buffering
-			player = Manager.createPlayer(new MediaLocator(channelURL));
+		//	Manager.setHint(Manager.CACHING, new Boolean(false)); this will disable buffering
 			player.addControllerListener(this);
 			player.start();
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Could not connect to stream " + channel, "Error", JOptionPane.ERROR_MESSAGE);
 			player.stop();
 			player.close();
 			player.deallocate();
