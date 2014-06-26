@@ -2,7 +2,7 @@ package fi.pauli.radio.mvc;
 
 public class Channels {
 
-	ReadXML rx = new ReadXML("http://lipas.uwasa.fi/~t95640/channels.xml");
+	ReadXML rx = new ReadXML("http://gingrkidd.com/other_files/radiomvc/channels.xml");
 
 	private String[] channelNames;
 	private String[] channelUrl;
