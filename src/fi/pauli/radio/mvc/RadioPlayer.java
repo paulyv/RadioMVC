@@ -41,7 +41,7 @@ public class RadioPlayer extends JFrame implements ControllerListener {
 		try {
 			channelURL = new URL(channel);
 			player = Manager.createPlayer(new MediaLocator(channelURL));
-			Manager.setHint(Manager.CACHING, new Boolean(false)); // this will disable buffering
+			//Manager.setHint(Manager.CACHING, new Boolean(false)); // this will disable buffering
 			player.start();
 		} catch (Exception e) {
 			e.printStackTrace();
