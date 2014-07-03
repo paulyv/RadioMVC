@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
 import javax.media.Format;
+import javax.media.IncompatibleTimeBaseException;
 import javax.media.Manager;
 import javax.media.MediaLocator;
 import javax.media.Player;
@@ -40,8 +41,7 @@ public class RadioPlayer extends JFrame implements ControllerListener {
 		try {
 			channelURL = new URL(channel);
 			player = Manager.createPlayer(new MediaLocator(channelURL));
-		//	Manager.setHint(Manager.CACHING, new Boolean(false)); this will disable buffering
-			player.addControllerListener(this);
+			Manager.setHint(Manager.CACHING, new Boolean(false)); // this will disable buffering
 			player.start();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,10 +64,20 @@ public class RadioPlayer extends JFrame implements ControllerListener {
 		int state = player.getState();
 		return state;
 	}
-
+	
+	// Get player decibel
+	public String getDecibel(){
+		String db;
+		db = Float.toString(player.getGainControl().getDB());
+		return db;
+	}
+	
+	public void setVolume(float x){
+		player.getGainControl().setDB(x);
+	}
 	
 	@Override
 	public void controllerUpdate(ControllerEvent arg0) {
-
+		System.out.println(player.getGainControl().getDB());
 	}
 }

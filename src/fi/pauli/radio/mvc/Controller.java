@@ -3,6 +3,9 @@ package fi.pauli.radio.mvc;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 public class Controller {
 
 	private int comboBoxIndex = 0;
@@ -16,6 +19,8 @@ public class Controller {
 		rp = new RadioPlayer();
 		view.addPlayBtnListener(new PlayBtnListener());
 		view.addStopBtnListener(new StopBtnListener());
+		view.addPauseBtnListener(new PauseBtnListener());
+		view.addSliderListener(new SliderListener());
 
 	}
 
@@ -64,6 +69,24 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			rp.stop();
 			playing = false;
+		}
+	}
+
+	// Pause button actions
+	class PauseBtnListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// view.setDecibelTxt(rp.getDecibel());
+		}
+	}
+
+	// Slider actions
+	class SliderListener implements ChangeListener {
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			
+			float db = view.getSliderValue();
+			rp.setVolume(db);
 		}
 	}
 

@@ -20,6 +20,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
+import javax.swing.JTextField;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class View extends JFrame{
 	
@@ -32,6 +36,8 @@ public class View extends JFrame{
 	private JComboBox ChannelBox;
 	private Channels ch = new Channels();
 	private ImageIcon bg = new ImageIcon(View.class.getResource("/res/wood-texture-02.jpg"));
+	private RadioPlayer rp = new RadioPlayer();
+	private JSlider slider;
 	
 	public View() {
 		
@@ -88,7 +94,7 @@ public class View extends JFrame{
 		StateLbl.setBounds(220, 56, 73, 13);
 		contentPane.add(StateLbl);
 		
-		LcdLbl = new JLabel("Cannes Radio 93.5 FM");
+		LcdLbl = new JLabel("Cannes Radio 91.3 FM");
 		LcdLbl.setForeground(new Color(47, 79, 79));
 		LcdLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		LcdLbl.setDoubleBuffered(true);
@@ -107,9 +113,21 @@ public class View extends JFrame{
 		ChannelBox.setBounds(293, 35, 150, 27);
 		contentPane.add(ChannelBox);
 		
+		slider = new JSlider();
+		slider.setMaximum(70);
+		slider.setValue(0);
+		slider.setMinimum(-70);
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+			}
+		});
+		slider.setBounds(28, 81, 246, 21);
+		contentPane.add(slider);
+		
 		JLabel lblBg = new JLabel(bg);
 		lblBg.setBounds(0, 0, 449, 179);
 		contentPane.add(lblBg);
+		
 		
 	}
 	
@@ -128,6 +146,9 @@ public class View extends JFrame{
 	public int getChannelBoxIndex(){
 		return ChannelBox.getSelectedIndex();
 	}
+	public float getSliderValue(){
+		return slider.getValue();
+	}
 	
 	// ACTIONLISTENERS
 	
@@ -142,5 +163,8 @@ public class View extends JFrame{
 	}
 	void addChannelBoxListener(ItemListener al){
 		ChannelBox.addItemListener(al);
+	}
+	void addSliderListener(ChangeListener cl){
+		slider.addChangeListener(cl);
 	}
 }
